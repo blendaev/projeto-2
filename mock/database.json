@@ -1,11 +1,7 @@
 {
-  "auth": [
-    {
-      "accessToken": "asdfasdf",
-      "email": "teste@gmail.com",
-      "password": "123456"
-    }
-  ],
+  "auth": {
+    "accessToken": "asdfasdf"
+  },
   "cidades": [
     {
       "id": 1,

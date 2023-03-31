@@ -1,6 +1,4 @@
-import { Box, Button, Card, CircularProgress, TextField, Typography } from '@mui/material';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import { CardActions, CardContent, Box, Button, Card, CircularProgress, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import * as yup from 'yup';
 
@@ -40,8 +38,10 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
         errors.inner.forEach(error => {
           if (error.path === 'email') {
             setEmailError(error.message);
+            setIsLoading(false);
           } else {
             setPasswordError(error.message);
+            setIsLoading(false);
           }
         });
       });
