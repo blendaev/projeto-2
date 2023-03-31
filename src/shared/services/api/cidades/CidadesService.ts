@@ -1,32 +1,28 @@
 import { Enviroment } from '../../../enviroments';
 import { Api } from '../axios-config';
 
-export interface IListagemPessoa {
+export interface IListagemCidade {
   id: number;
-  email: string;
-  cidadeId: number;
-  nomeCompleto: string;
+  nomeCidade: string;
 }
 
-export interface IDetalhePessoa {
+export interface IDetalheCidade {
   id: number;
-  email: string;
-  cidadeId: number;
-  nomeCompleto: string;
+  nomeCidade: string;
 }
 
-type TPessoasComTotalCount = {
-  data: IListagemPessoa[];
+type TCidadesComTotalCount = {
+  data: IListagemCidade[];
   totalCount: number;
 }
 
-type TPessoasSomenteTotalCount = {
+type TCidadesSomenteTotalCount = {
   totalCount: number;
 }
 
-const getTotal = async (page = 1, filter = ''): Promise<TPessoasSomenteTotalCount | Error> => {
+const getTotal = async (page = 1, filter = ''): Promise<TCidadesSomenteTotalCount | Error> => {
   try {
-    const urlRelativa = `/pessoas?_page=${page}&_limit=${Enviroment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`;
+    const urlRelativa = `/cidades?_page=${page}&_limit=${Enviroment.LIMITE_DE_LINHAS}&nomeCidade_like=${filter}`;
     const { headers } = await Api.get(urlRelativa);
 
     return {
@@ -38,9 +34,9 @@ const getTotal = async (page = 1, filter = ''): Promise<TPessoasSomenteTotalCoun
   }
 };
 
-const getAll = async (page = 1, filter = ''): Promise<TPessoasComTotalCount | Error> => {
+const getAll = async (page = 1, filter = ''): Promise<TCidadesComTotalCount | Error> => {
   try {
-    const urlRelativa = `/pessoas?_page=${page}&_limit=${Enviroment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`;
+    const urlRelativa = `/cidades?_page=${page}&_limit=${Enviroment.LIMITE_DE_LINHAS}&nomeCidade_like=${filter}`;
     const { data, headers } = await Api.get(urlRelativa);
 
     if (data) {
@@ -56,9 +52,9 @@ const getAll = async (page = 1, filter = ''): Promise<TPessoasComTotalCount | Er
   }
 };
 
-const getById = async (id: number): Promise<IDetalhePessoa | Error> => {
+const getById = async (id: number): Promise<IDetalheCidade | Error> => {
   try {
-    const { data } = await Api.get(`/pessoas/${id}`);
+    const { data } = await Api.get(`/cidades/${id}`);
 
     if (data) {
       return data;
@@ -70,9 +66,9 @@ const getById = async (id: number): Promise<IDetalhePessoa | Error> => {
   }
 };
 
-const create = async (dados: Omit<IDetalhePessoa, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<IDetalheCidade, 'id'>): Promise<number | Error> => {
   try {
-    const { data } = await Api.post<IDetalhePessoa>('/pessoas', dados);
+    const { data } = await Api.post<IDetalheCidade>('/cidades', dados);
 
     if (data) {
       return data.id;
@@ -84,9 +80,9 @@ const create = async (dados: Omit<IDetalhePessoa, 'id'>): Promise<number | Error
   }
 };
 
-const updateById = async (id: number, dados: IDetalhePessoa): Promise<void | Error> => {
+const updateById = async (id: number, dados: IDetalheCidade): Promise<void | Error> => {
   try {
-    await Api.put(`/pessoas/${id}`, dados);
+    await Api.put(`/cidades/${id}`, dados);
 
   } catch (error) {
     console.error(error); // pra depurar no console do navegador!
@@ -96,7 +92,7 @@ const updateById = async (id: number, dados: IDetalhePessoa): Promise<void | Err
 
 const deleteById = async (id: number): Promise<void | Error> => {
   try {
-    await Api.delete(`/pessoas/${id}`);
+    await Api.delete(`/cidades/${id}`);
 
   } catch (error) {
     console.error(error); // pra depurar no console do navegador!
@@ -104,7 +100,7 @@ const deleteById = async (id: number): Promise<void | Error> => {
   }
 };
 
-export const PessoaService = {
+export const CidadeService = {
   getTotal,
   getAll,
   getById,

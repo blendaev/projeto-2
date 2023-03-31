@@ -8,8 +8,9 @@ interface ILayoutBaseDePaginaProps {
   children: React.ReactNode;
   titulo: string;
   ferramentasDaListagem?: ReactNode | undefined;
-};
-export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, titulo, ferramentasDaListagem: ferramentasDaListagem }) => {
+  barraDeFerramentas?: ReactNode | undefined;
+}
+export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, titulo, barraDeFerramentas: barraDeFerramentas, ferramentasDaListagem: ferramentasDaListagem }) => {
   const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const mdDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
   const theme = useTheme();
@@ -37,6 +38,14 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
         <Typography>
           <Box>
             {ferramentasDaListagem}
+          </Box>
+        </Typography>
+      )}
+
+      {barraDeFerramentas && (
+        <Typography>
+          <Box>
+            {barraDeFerramentas}
           </Box>
         </Typography>
       )}
